@@ -1,0 +1,61 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title >
+      Grades
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true">
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSj6hLkiUi3XkYeNTmbcBGGIPBwmCZXTc6QaQ&usqp=CAU" alt="">
+  
+  <h1><b>Check your score</b></h1>
+  <ion-input placeholder="Enter student id" [(ngModel)]="studentid"></ion-input>
+  <!--ใส่button-->
+  <ion-button expand = 'block' color="medium" (click)="showScore(studentid)">Submit</ion-button>
+  <!--โชว์คะแนน-->
+  <div *ngIf="score$ | async as score">
+  <ion-card color="dark">
+    <ion-card-header>
+      <ion-card-title text-wrap style="font-size:20px">ID : {{score.id}}</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+    <h3>Q1 : {{score.Q1}}</h3>
+    <h3>Q2 : {{score.Q2}}</h3>
+    <h3>Q3 : {{score.Q3}}</h3>
+    <h3>Q4 : {{score.Q4}}</h3>
+    <h3>Q5 : {{score.Q5}}</h3>
+    <h3>Total : {{score.Total}}</h3>
+    </ion-card-content>
+  </ion-card>
+  </div>
+
+<!--Lower and upper bound-->
+
+<!--รับ input-->
+<h1><b>Score range</b></h1>
+<ion-list>
+  <ion-item>
+  <ion-input placeholder="Enter minimum score" [(ngModel)]="lower"></ion-input>
+  </ion-item>
+  <ion-item>
+  <ion-input placeholder="Enter maximum score" [(ngModel)]="upper"></ion-input>
+  </ion-item>
+</ion-list>
+<ion-button expand="block" color="medium" (click)="showRange(lower,upper)">Submit</ion-button>
+
+<!--show card all student-->
+<div *ngIf="range$ | async as range">
+<ion-card color="success">
+  <ion-card-header>
+    <ion-card-title text-wrap style="font-size:20px">Student with score from {{lower}} to {{upper}}</ion-card-title>  
+  </ion-card-header>
+
+  <ion-card-content *ngFor="let item of range.allstudent">
+    <li style="font-size:15px">{{item}}</li>
+  </ion-card-content>
+</ion-card>
+</div>
+</ion-content>
